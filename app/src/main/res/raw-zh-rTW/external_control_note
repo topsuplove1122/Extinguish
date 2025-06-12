@@ -1,0 +1,39 @@
+您可以通過 Android 調試橋（ADB），從外部控制 Extinguish 服務。
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei <參數名> <參數值>
+您可以指定多個參數或不指定參數。每個指定的參數前都需要添加 '--ei' 。
+
+參數 screen
+    0 打開屏幕
+    1 關閉屏幕
+    2 切換屏幕狀態
+示例
+打開屏幕：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei screen 0
+關閉屏幕：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei screen 1
+切換屏幕狀態：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei screen 2
+
+參數 fb
+    0 顯示懸浮按鈕
+    1 隱藏懸浮按鈕
+    2 切換懸浮按鈕狀態
+* 該參數不會覆蓋懸浮按鈕啟用設置
+示例
+顯示懸浮按鈕：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei fb 0
+隱藏懸浮按鈕：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei fb 1
+切換懸浮按鈕狀態：
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei fb 2
+
+參數 rfb
+    1 在本次服務中移除懸浮按鈕
+* 該參數會覆蓋懸浮按鈕啟用設置，且只在 Extinguish 服務未運行時添加才有效。
+示例
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei rfb 1
+
+參數 stop
+    1 停止服務
+示例
+`adb shell am startservice -n own.moderpach.extinguish/.service.ExtinguishService --ei stop 1
