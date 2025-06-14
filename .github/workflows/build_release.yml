@@ -64,29 +64,31 @@ jobs:
         working-directory: app/build/outputs/apk/unsigned/release
         run: |
           $BUILD_TOOLS/zipalign -v -p 4 $UNSIGNED_APP_NAME $ALIGN_APP_NAME
-          $BUILD_TOOLS/apksigner sign --ks $KEY_STORE_FILE --ks-key-alias $KEY_ALIAS --ks-pass pass:$KEYSTORE_PASS --key-pass pass:$KEY_PASS --out $SIGNED_APP_NAME $ALIGN_APP_NAME
+          # $BUILD_TOOLS/apksigner sign --ks $KEY_STORE_FILE --ks-key-alias $KEY_ALIAS --ks-pass pass:$KEYSTORE_PASS "$ALIGN_APP_NAME"
+          cp "$ALIGN_APP_NAME" "$SIGNED_APP_NAME"
 
-      - name: Signing app bundle
-        env:
-          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASS: ${{ secrets.KEY_PASS }}
-          UNSIGNED_APP_NAME: app-unsigned-release.aab
-          SIGNED_APP_NAME: app-release.aab
-        working-directory: app/build/outputs/bundle/unsignedRelease
-        run: |
-          jarsigner -keystore $KEY_STORE_FILE -storepass $KEYSTORE_PASS -keypass $KEY_PASS $UNSIGNED_APP_NAME $KEY_ALIAS
-          mv $UNSIGNED_APP_NAME $SIGNED_APP_NAME
+      # - name: Signing app bundle
+      #   env:
+      #     KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+      #     KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      #     KEY_PASS: ${{ secrets.KEY_PASS }}
+      #     UNSIGNED_APP_NAME: app-unsigned-release.aab
+      #     SIGNED_APP_NAME: app-release.aab
+      #   working-directory: app/build/outputs/bundle/unsignedRelease
+      #   run: |
+      #     jarsigner -keystore $KEY_STORE_FILE -storepass $KEYSTORE_PASS -keypass $KEY_PASS $UNSIGNED_APP_NAME $KEY_ALIAS
+      #     mv $UNSIGNED_APP_NAME $SIGNED_APP_NAME
 
       - name: Output in place
         run: |
           mkdir output
-          mv app/build/outputs/apk/unsigned/release/app-release.apk output
-          mv app/build/outputs/bundle/unsignedRelease/app-release.aab output
+          mv app/build/outputs/apk/unsigned/release/app-release.apk app/build/outputs/apk/unsigned/release/Extinguish_0.9.5.1_by_Reeky.apk
+          mv app/build/outputs/apk/unsigned/release/Extinguish_0.9.5.1_by_Reeky.apk output
+          # mv app/build/outputs/bundle/unsignedRelease/app-release.aab output
 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: Extinguish
           path: output/

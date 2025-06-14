@@ -19,7 +19,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 35
-        versionName = "0.9.5.1"
+        versionName = "0.9.5.1_mod_by_Reeky"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables {
