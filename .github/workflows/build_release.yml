@@ -82,12 +82,13 @@ jobs:
       - name: Output in place
         run: |
           mkdir output
-          mv app/build/outputs/apk/unsigned/release/app-release.apk output
+          mv app/build/outputs/apk/unsigned/release/app-release.apk app/build/outputs/apk/unsigned/release/Extinguish_0.9.5.1_by_Reeky.apk
+          mv app/build/outputs/apk/unsigned/release/Extinguish_0.9.5.1_by_Reeky.apk output
           # mv app/build/outputs/bundle/unsignedRelease/app-release.aab output
 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: Extinguish
           path: output/
